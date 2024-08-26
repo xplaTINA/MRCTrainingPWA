@@ -1,0 +1,11 @@
+{
+  "name": "web push sample",
+  "short_name": "web push sample",
+  "description": "",
+  "start_url": "/path/to/index.html",
+  "display": "standalone",
+  "theme_color": "#dff0d8",
+  "lang": "ja",
+  "background_color": "#dff0d8",
+  "scope":"./"
+}
