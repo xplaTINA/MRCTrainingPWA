@@ -8,17 +8,68 @@
     <title>Webプッシュ通知</title>
   </head>
   <body>
-    <button id="subscribe-button">ローカルでの通知を許可する</button>
+    <button id="subscribe-button">リモートでの通知を許可する</button>
     <script>
+      const publicKey =　"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOTa7MkBI3jZ2EObiRJgaICD5tsbtyNs8/aRW3sW7vulBDteN+hiIMmwMb4ZcxjW8LrCXt/luZIq4zV2TQn0lmImOkKcfXTVGD4AiDdEPpq/mUUFmzWymRHa5j68JfrINhtsfh0Gpym0lYsSdqUQ10A/rXiAl8aY8dPfYajqGsFyDYtdQz+fWBqgbrjmtnkT7d5kWaJBBaIer0YESg1R8UVfCyrFFcQE6vYGiU+2ocuMpfGikFPidl68KHgmM1PZyxMTOqlcJ56Y1zfqM0JjYJRnER2tmWVL3Lb6NXXn5zqzjNjZ3+fA18t8gu712bXQgyNIkP3cWSZQA2/Id7ZPtd/K86gs8jzTGMmdEULVsBwn5iXaUcjVgbxifp1DeHHL7Pj3zDc/jyuF1O5wGAIZXYgKNWExk5bkJ9nsXuDrI1eottwCh9eH1/P/5Gkg01NhrugcX/qcSovBFj87mZarlUxzsXWyCQ8sGN57L9BPDQX39nQWzISdRZK8539R4AfNM= usuke@DESKTOP-IQ1UHJ2";
+
+      // 通知の登録を行う関数
+      async function subscribeNotification(reg) {
+        if (!reg) return;
+
+        let result = null;
+        try {
+          result = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: publicKey,
+          });
+        } catch (e) {}
+        return result;
+      }
+
+      async function postSubscription(endpoint, p256dh, auth) {
+        const result = await fetch(
+          "https://exa68x8b6c.execute-api.ap-northeast-1.amazonaws.com/PushNotification",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: "web-test",
+              endpoint: endpoint,
+              p256dh: p256dh,
+              auth: auth,
+            }),
+          }
+        );
+      }
+
+      // ArrayBufferをStringに変換する関数
+      function ArrayBufferToString(arrayBuffer) {
+        return btoa(
+          String.fromCharCode.apply(null, new Uint8Array(arrayBuffer))
+        )
+          .replace(/\+/g, "-")
+          .replace(/\//g, "_");
+      }
+
       window.onload = async () => {
+        navigator.serviceWorker.register("./service-worker.js");
+
         navigator.serviceWorker.ready.then((reg) => {
           document
             .getElementById("subscribe-button")
-            .addEventListener("click", () => {
-              Notification.requestPermission();
+            .addEventListener("click", async () => {
+              const subscription = await subscribeNotification(reg);
+              if (!subscription) return;
+
+              const endpoint = subscription.endpoint;
+              const p256dh = ArrayBufferToString(subscription.getKey("p256dh"));
+              const auth = ArrayBufferToString(subscription.getKey("auth"));
+
+              await postSubscription(endpoint, p256dh, auth);
             });
         });
-        navigator.serviceWorker.register("./sw.js");
       };
     </script>
   </body>
