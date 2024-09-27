@@ -6,4 +6,4 @@ start.bat
 sshStart.bat
 generateVapidKeys.js
 README.md
-"ssh key.pem"
+ssh key.pem
