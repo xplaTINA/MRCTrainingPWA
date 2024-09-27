@@ -1,0 +1,9 @@
+node_modules
+nodejs.zip
+key
+key.pub
+start.bat
+sshStart.bat
+generateVapidKeys.js
+README.md
+"ssh key.pem"

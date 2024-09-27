@@ -1,0 +1,21 @@
+/* メッセージコンテナ */
+.message-container {
+    width: 400px;
+    height: calc(1.5em * 15); /* 15行分の高さを指定 */
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto; /* 縦にスクロール可能 */
+    background-color: #f9f9f9;
+    font-size: 1em;
+    line-height: 1.5em; /* 1行の高さを1.5emに */
+}
+
+/* メッセージごとの要素 */
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #e1f5fe;
+    border-radius: 5px;
+    word-wrap: break-word;
+}

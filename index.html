@@ -6,6 +6,7 @@
     <link rel="manifest" href="manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Webプッシュ通知</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <button id="subscribe-button">リモートでの通知を許可する</button>
@@ -24,9 +25,10 @@
       <label for="messageText">メッセージ内容:</label>
       <input type="text" id="messageText" placeholder="メッセージを入力" />
     </div>
-    <script src="script.js"></script>
     <button id="send-message-button">メッセージを送信</button>
-
-    
+      <div class="message-container" id="messageContainer">
+          <!-- メッセージが動的にここに追加されます -->
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>

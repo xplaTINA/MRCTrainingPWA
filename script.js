@@ -1,7 +1,7 @@
-const publicKey = "BJTWR9XBBeqSrW-q8Tw_5zi3M9pP9MxjoVoeddcCysSfpbuxwoY9VL1qS2PucnQVnw4eRrdtVUGjhZylj331YPA";
 
 // 通知の登録を行う関数
 async function subscribeNotification(reg) {
+  publicKey = "BJTWR9XBBeqSrW-q8Tw_5zi3M9pP9MxjoVoeddcCysSfpbuxwoY9VL1qS2PucnQVnw4eRrdtVUGjhZylj331YPA";
   if (!reg) return;
 
   let result = null;
@@ -89,3 +89,49 @@ window.onload = async () => {
       });
   });
 };
+
+// メッセージコンテナを取得
+const messageContainer = document.getElementById('messageContainer');
+
+// メッセージを動的に追加する関数
+function addMessage(text) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message');
+    messageElement.textContent = text;
+    messageContainer.appendChild(messageElement);
+
+    // 常に最新メッセージを表示するためにスクロールを下に移動
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+function resetMessages() {
+    messageContainer.innerHTML = '';  // メッセージをすべて削除
+}
+
+async function fetchData() {
+    try {
+        const response = await fetch(`http://ec2-18-179-43-56.ap-northeast-1.compute.amazonaws.com:5000/getdata`, {
+            method: 'GET',
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Received data:', data);
+            addMessage("data");
+        } else {
+            console.error('Failed to fetch data:', response.status);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+// ボタンのクリックでデータ取得を呼び出す例
+document.getElementById('fetchButton').addEventListener('click', fetchData);
+
+// サンプルメッセージを追加
+
+//addMessage("お元気ですか？");
+//addMessage("このメッセージはスクロール可能です。");
+//addMessage("このメッセージはスクロール可能です。");
+//addMessage("このメッセージはスクロール可能です。");
