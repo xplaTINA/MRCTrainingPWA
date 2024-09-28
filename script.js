@@ -110,7 +110,7 @@ function resetMessages() {
 
 async function fetchData() {
     try {
-        const response = await fetch(`http://ec2-18-179-43-56.ap-northeast-1.compute.amazonaws.com:5000/getdata`, {
+        const response = await fetch(`https://ec2-18-179-43-56.ap-northeast-1.compute.amazonaws.com:5000/getdata`, {
             method: 'GET',
         });
 
