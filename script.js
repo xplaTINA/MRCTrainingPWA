@@ -126,8 +126,9 @@ async function fetchData() {
     }
 }
 
+setInterval(fetchData, 1000);
 // ボタンのクリックでデータ取得を呼び出す例
-document.getElementById('fetchButton').addEventListener('click', fetchData);
+//document.getElementById('fetchButton').addEventListener('click', fetchData);
 
 // サンプルメッセージを追加
 
