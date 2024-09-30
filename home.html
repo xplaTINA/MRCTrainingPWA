@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webプッシュ通知</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <button id="subscribe-button">リモートでの通知を許可する</button>
+    
+    <div>
+      <label for="senderID">送信者ID:</label>
+      <input type="text" id="senderID" placeholder="送信者IDを入力" />
+    </div>
+    
+    <div>
+      <label for="receiverID">受信者ID:</label>
+      <input type="text" id="receiverID" placeholder="受信者IDを入力" />
+    </div>
+    
+    <div>
+      <label for="messageText">メッセージ内容:</label>
+      <input type="text" id="messageText" placeholder="メッセージを入力" />
+    </div>
+    <button id="send-message-button">メッセージを送信</button>
+      <div class="message-container" id="messageContainer">
+          <!-- メッセージが動的にここに追加されます -->
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
