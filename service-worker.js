@@ -1,3 +1,4 @@
+/*
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('messaging-pwa-cache').then((cache) => {
@@ -16,7 +17,7 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-
+*/
 self.addEventListener("push", function (event) {
     const message = event.data.json();
     self.registration.showNotification(message.title, { body: message.text });
