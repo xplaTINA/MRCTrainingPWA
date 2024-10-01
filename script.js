@@ -46,7 +46,7 @@ async function postMessage() {
       body: JSON.stringify({
         conversationId: username + "-" + receiverID,
         timestamp: new Date().toISOString(),
-        messageID: generateSHA256Hash(username + new Date().toISOString()),
+        messageID: generateSHA256Hash(username + messageText),
         messageText: messageText,
         receiverID: receiverID,
         senderID: username,
