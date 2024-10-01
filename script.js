@@ -33,7 +33,6 @@ async function postSubscription(endpoint, p256dh, auth) {
 }
 
 async function postMessage() {
-  const senderID = document.getElementById("senderID").value;
   const receiverID = document.getElementById("receiverID").value;
   const messageText = document.getElementById("messageText").value;
 
