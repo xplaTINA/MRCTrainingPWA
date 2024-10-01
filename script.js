@@ -49,7 +49,7 @@ async function postMessage() {
         messageID: generateSHA256Hash(username + "-" + receiverID + "-" + new Date().toISOString()),
         messageText: messageText,
         receiverID: receiverID,
-        senderID: senderID,
+        senderID: username,
       }),
     }
   );
