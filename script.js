@@ -101,12 +101,6 @@ window.onload = async () => {
         await postMessage();
       });
   });
-
-  if (username) {
-      document.getElementById('userName').textContent = username;
-  } else {
-      document.getElementById('userName').textContent = 'ゲスト';
-  }
 };
 
 // メッセージコンテナを取得
@@ -145,7 +139,7 @@ async function fetchData() {
     }
 }
 
-setInterval(fetchData, 10000);
+//setInterval(fetchData, 10000);
 // ボタンのクリックでデータ取得を呼び出す例
 //document.getElementById('fetchButton').addEventListener('click', fetchData);
 
