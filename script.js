@@ -1,5 +1,5 @@
+const username = sessionStorage.getItem('userName');
 
-// 通知の登録を行う関数
 async function subscribeNotification(reg) {
   publicKey = "BJTWR9XBBeqSrW-q8Tw_5zi3M9pP9MxjoVoeddcCysSfpbuxwoY9VL1qS2PucnQVnw4eRrdtVUGjhZylj331YPA";
   if (!reg) return;
@@ -23,7 +23,7 @@ async function postSubscription(endpoint, p256dh, auth) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: "web-test",
+        id: username,
         endpoint: endpoint,
         p256dh: p256dh,
         auth: auth,
@@ -45,9 +45,9 @@ async function postMessage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        conversationId: "0",
+        conversationId: username + "-" + receiverID,
         timestamp: new Date().toISOString(),
-        messageID: "0",
+        messageID: generateSHA256Hash(username + "-" + receiverID + "-" + timestamp + "-" + senderID),
         messageText: messageText,
         receiverID: receiverID,
         senderID: senderID,
@@ -55,6 +55,20 @@ async function postMessage() {
     }
   );
 }
+
+async function generateSHA256Hash(input) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(input);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
+// 使用例
+generateSHA256Hash("example-string").then(hash => {
+  console.log(hash);  // 一意なID (64文字の16進数)
+});
 
 // ArrayBufferをStringに変換する関数
 function ArrayBufferToString(arrayBuffer) {
@@ -88,6 +102,12 @@ window.onload = async () => {
         await postMessage();
       });
   });
+
+  if (username) {
+      document.getElementById('userName').textContent = username;
+  } else {
+      document.getElementById('userName').textContent = 'ゲスト';
+  }
 };
 
 // メッセージコンテナを取得
