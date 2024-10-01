@@ -44,6 +44,15 @@ async function postMessage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        conversationId: username,
+        timestamp: new Date().toISOString(),
+        messageID: '0',
+        messageText: messageText,
+        receiverID: receiverID,
+        senderID: username,
+      })
+      /*
+      body: JSON.stringify({
         conversationId: username + "-" + receiverID,
         timestamp: new Date().toISOString(),
         messageID: generateSHA256Hash(username + "-" + receiverID + "-" + new Date().toISOString()),
@@ -51,6 +60,7 @@ async function postMessage() {
         receiverID: receiverID,
         senderID: username,
       }),
+      */
     }
   );
 }
